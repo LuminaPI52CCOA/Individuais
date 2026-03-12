@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Projeto Individual</title>
+</head>
+
+<body>
+  <div class="conteiner">
+    <div class="box">
+
+      <img src="./images/D1.webp" alt="Logo desbradadores D1">
+
+      <h1>Cadastro</h1>
+
+      <div class="campos">
+        <p>Nome:</p>
+        <input type="text" id="ipt_nome">
+        <p>Sobrenome:</p>
+        <input type="text" id="ipt_sobrenome">
+        <p>Email:</p>
+        <input type="text" id="ipt_email">
+        <p>Senha:</p>
+        <input type="password" id="ipt_senha">
+        <p>Confirmar senha:</p>
+        <input type="password" id="ipt_confirmsenha">
+        <p>Data de nascimento:</p>
+        <input type="date" id="ipt_dtNascimento">
+        <p>Clube:</p>
+        <select id="sel_clubes">
+          <option value="#">Selecione um clube</option>
+          <option value="nnhum">NENHUM</option>
+          <option value="ALVORADA">ALVORADA</option>
+          <option value="ANTARES">ANTARES</option>
+          <option value="ÁRVORE DA VILA">ÁRVORE DA VILA</option>
+          <option value="AURORA BOREAL">AURORA BOREAL</option>
+          <option value="CENTAURO">CENTAURO</option>
+          <option value="ESTRELA DO ORIENTE">ESTRELA DO ORIENTE</option>
+          <option value="EVEREST MASTER">EVEREST MASTER</option>
+          <option value="GAVIÃO REAL">GAVIÃO REAL</option>
+          <option value="GEDEONES DE LOS ANDES">GEDEONES DE LOS ANDES</option>
+          <option value="NOVA SEMENTE">NOVA SEMENTE</option>
+          <option value="PIONEIROS DO CAMBUCI">PIONEIROS DO CAMBUCI</option>
+          <option value="SOL NASCENTE">SOL NASCENTE</option>
+          <option value="ÁGUIAS DE HAIA">ÁGUIAS DE HAIA</option>
+          <option value="ALMIRANTE TAMANDARÉ">ALMIRANTE TAMANDARÉ</option>
+          <option value="ALPHA SIRIÚS">ALPHA SIRIÚS</option>
+          <option value="ARCO-ÍRIS">ARCO-ÍRIS</option>
+          <option value="BETEL">BETEL</option>
+          <option value="BORBA GATO">BORBA GATO</option>
+          <option value="CAMPESTRE">CAMPESTRE</option>
+        </select>
+        <button onclick="cadastrar()">Cadastrar</button>
+      </div>
+    </div>
+    <div class="box_alerta" id="alerta"></div>
+  </div>
+</body>
+
+</html>
+
+<script>
+  function cadastrar() {
+    let nome = ipt_nome.value
+    let sobrenome = ipt_sobrenome.value
+    let email = ipt_email.value
+    let senha = ipt_senha.value
+    let confirmSenha = ipt_confirmsenha.value
+    let dtNascimento = ipt_dtNascimento.value
+    let clube = sel_clubes.value
+
+    let campos = ["ipt_nome", "ipt_sobrenome", "ipt_email", "ipt_senha", "ipt_confirmsenha", "ipt_dtNascimento", "sel_clubes"]
+
+    let temErro = false;
+
+    for (let id of campos) {
+      const campo = document.getElementById(id);
+
+      if (!campo.value || campo.value == "#") {
+        console.log(`Campo ${id} obrigatório vazio`);
+        campo.style.borderColor = "red";
+        temErro = true;
+      } else {
+        campo.style.borderColor = "black";
+      }
+    }
+
+    if (temErro) return;
+
+    if (email.indexOf("@") == -1 || !email.endsWith(".com")) {
+      const alerta = document.getElementById("alerta")
+      alerta.style.display = "flex"
+      alerta.innerHTML = "Email inválido (deve conter @ e terminar com .com)!"
+      document.getElementById("ipt_email").style.borderColor = "red";
+      return
+    }
+    if (!/[!@#$%&*]/.test(senha)) {
+      const alerta = document.getElementById("alerta")
+      alerta.style.display = "flex"
+      alerta.innerHTML = "A senha deve conter um caractere especial!"
+      document.getElementById("ipt_senha").style.borderColor = "red";
+      return
+    }
+    if (!/[A-Z]/.test(senha)) {
+      const alerta = document.getElementById("alerta")
+      alerta.style.display = "flex"
+      alerta.innerHTML = "A senha deve conter letra maiuscula!"
+      document.getElementById("ipt_senha").style.borderColor = "red";
+      return
+    }
+    if (!/[a-z]/.test(senha)) {
+      const alerta = document.getElementById("alerta")
+      alerta.style.display = "flex"
+      alerta.innerHTML = "A senha deve conter letra minuscula!"
+      document.getElementById("ipt_senha").style.borderColor = "red";
+      return
+    }
+    if (!/[0-9]/.test(senha)) {
+      const alerta = document.getElementById("alerta")
+      alerta.style.display = "flex"
+      alerta.innerHTML = "A senha deve um numero!"
+      document.getElementById("ipt_senha").style.borderColor = "red";
+      return
+    }
+    if (senha != confirmSenha) {
+      const alerta = document.getElementById("alerta")
+      alerta.style.display = "flex"
+      alerta.innerHTML = "As senhas não coincidem!"
+      document.getElementById("ipt_senha").style.borderColor = "red";
+      document.getElementById("ipt_confirmsenha").style.borderColor = "red";
+      return
+    }
+
+    document.getElementById("alerta").style.display = "none"
+
+
+    fetch("http://localhost:8080/usuarios", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nome: nome,
+        sobrenome: sobrenome,
+        email: email,
+        senha: senha,
+        dtNascimento: dtNascimento,
+        clube: clube
+      })
+    })
+      .then(function (resposta) {
+        console.log("Resposta: ", resposta)
+
+        if (resposta.ok) {
+          console.log("Cadastro realizado com sucesso!")
+          const alerta = document.getElementById("alerta");
+          alerta.style.display = "flex";
+          alerta.innerHTML = "Cadastro realizado com sucesso!";
+          alerta.className = "sucesso-alerta";
+
+          setTimeout(() => {
+            alerta.style.opacity = "0";
+
+            setTimeout(() => {
+              alerta.style.display = "none";
+              alerta.style.opacity = "1";
+            }, 500);
+          }, 3000);
+        } else {
+          throw "Erro ao realizar o cadastro!"
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`Erro: ${resposta}`)
+      })
+
+    return false
+  }
+</script>
