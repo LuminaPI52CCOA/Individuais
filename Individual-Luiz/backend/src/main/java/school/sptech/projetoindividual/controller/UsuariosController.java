@@ -20,6 +20,9 @@ public class UsuariosController {
 
     @PostMapping
     public ResponseEntity<String> cadastro(@RequestBody Usuarios usuario){
+        if(usuario.getNome() == null || usuario.getNome().isBlank() || usuario.getClubes() == null || usuario.getClubes().isBlank() || usuario.getDtNascimento() == null || usuario.getEmail() == null || usuario.getEmail().isBlank() || usuario.getSenha() == null || usuario.getSenha().isBlank() || usuario.getSobrenome() == null || usuario.getSobrenome().isBlank()){
+            return ResponseEntity.status(400).build();
+        }
         service.salvar(usuario);
 
         return ResponseEntity.status(201).body("User created!");
