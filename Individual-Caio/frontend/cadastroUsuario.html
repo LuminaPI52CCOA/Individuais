@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <title>Projeto Individual</title>
+</head>
+
+<body>
+  <div class="registration-container">
+    <h1>Cadastro de Usuário</h1>
+
+    <form id="form_cadastro">
+      <div class="input-group">
+        <label for="ipt_nome">Nome Completo</label>
+        <input type="text" id="ipt_nome" placeholder="Insira seu nome" required>
+        <div id="msg_erro_nome" class="error-msg"></div>
+      </div>
+
+      <div class="input-group">
+        <label for="ipt_cpf">CPF</label>
+        <input type="text" id="ipt_cpf" placeholder="000.000.000-00" required>
+        <div id="msg_erro_cpf" class="error-msg"></div>
+      </div>
+
+      <div class="input-group">
+        <label for="ipt_email">E-mail</label>
+        <input type="email" id="ipt_email" placeholder="Insira seu email" required>
+        <div id="msg_erro_email" class="error-msg"></div>
+      </div>
+
+      <div class="row">
+        <div class="input-group">
+          <label for="ipt_senha">Senha</label>
+          <input type="password" id="ipt_senha" placeholder="Crie uma senha" required>
+          <div id="msg_erro_senha" class="error-msg"></div>
+        </div>
+        <div class="input-group">
+          <label for="ipt_confirmarSenha">Confirmar Senha</label>
+          <input type="password" id="ipt_confirmarSenha" placeholder="Repita a senha" required>
+          <div id="msg_erro_confSenha" class="error-msg"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-group">
+          <label for="slc_sexo">Gênero</label>
+          <select id="slc_sexo" required>
+            <option value="" disabled selected>Escolha</option>
+            <option value="F">Feminino</option>
+            <option value="M">Masculino</option>
+          </select>
+          <div id="msg_erro_sexo" class="error-msg"></div>
+        </div>
+        <div class="input-group">
+          <label for="ipt_dtNasc">Data de Nascimento</label>
+          <input type="text" id="ipt_dtNasc" placeholder="DD/MM/AAAA" maxlength="10">
+          <div id="msg_erro_dtNasc" class="error-msg"></div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="ipt_nomeSocial">Nome Social <span class="optional-label">(opcional)</span></label>
+        <input type="text" id="ipt_nomeSocial" placeholder="Como prefere ser chamado">
+        <div id="msg_erro_nomeSocial" class="error-msg"></div>
+      </div>
+
+      <div class="row">
+        <div class="input-group">
+          <label for="ipt_nacionalidade">Nacionalidade</label>
+          <select id="ipt_nacionalidade" required>
+            <option value="" disabled selected>Selecione</option>
+            <option value="br">Brasil (BR)</option>
+            <option value="pt">Portugal (PT)</option>
+            <option value="us">Estados Unidos (US)</option>
+          </select>
+          <div id="msg_erro_nacionalidade" class="error-msg"></div>
+        </div>
+
+        <div class="input-group">
+          <label for="cursos">Curso</label>
+          <select id="cursos" required>
+            <option value="" disabled selected>Selecione o Curso</option>
+          </select>
+          <div id="msg_erro_cursos" class="error-msg"></div>
+        </div>
+      </div>
+      <label class="checkbox-item">
+        <input type="checkbox" id="termos">
+        Aceito os termos de uso
+      </label>
+      <button type="button" onclick="cadastrar()" class="btn-submit">Finalizar Cadastro</button>
+    </form>
+  </div>
+
+</body>
+
+</html>
+<script>
+
+
+
+  fetch("http://localhost:8080/Cursos")
+    .then(response => response.json())
+    .then(cursos => {
+
+      const select = document.getElementById("cursos");
+
+      cursos.forEach(curso => {
+
+        const option = document.createElement("option");
+
+        option.value = curso.id;
+        option.textContent = curso.nome;
+
+        select.appendChild(option);
+      });
+
+      console.log(cursos)
+    })
+    .catch(error => console.error("Erro:", error));
+
+  function cadastrar() {
+
+    const nome = document.getElementById('ipt_nome').value;
+    const dtNasc = document.getElementById('ipt_dtNasc').value;
+    const cpf = document.getElementById('ipt_cpf').value;
+    const email = document.getElementById('ipt_email').value;
+    const senha = document.getElementById('ipt_senha').value;
+    // const regexSenha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const confSenha = document.getElementById('ipt_confirmarSenha').value;
+    const sexo = document.getElementById('slc_sexo').value;
+    const nomeSocial = document.getElementById('ipt_nomeSocial').value;
+    const nacionalidade = document.getElementById('ipt_nacionalidade').value;
+    const cursos = document.getElementById('cursos').value;;
+
+    const partes = dtNasc.split('/');
+    const cpfLimpo = cpf.replace(/\D/g, '');
+
+    const dtFormatada = `${partes[2]}-${partes[1]}-${partes[0]}`;
+
+    console.log("Digitado (BR):", cpfLimpo);
+
+    if (nome == null || nome == "") {
+      msg_erro_nome.innerHTML = "Nome é obrigatório";
+      return
+    }
+    if (dtNasc == null || dtNasc == "") {
+      msg_erro_dtNasc.innerHTML = "Data de Nascimento é obrigatório";
+      return
+    }
+    if (cpf == null || cpf == "") {
+      msg_erro_cpf.innerHTML = "CPF é obrigatório";
+      return
+    }
+    if (email == null || email == "") {
+      msg_erro_email.innerHTML = "Email é obrigatório";
+      return
+    }
+    if (senha == null || senha == "") {
+      msg_erro_senha.innerHTML = "Senha é obrigatório";
+      return
+    }
+    // if (!regexSenha.test(senha)) {
+    //   msg_erro_senha.innerHTML = "A senha deve ter 8+ caracteres, com maiúscula, minúscula, número e símbolo";
+    //   return
+    // }
+    if (confSenha == null || confSenha == "") {
+      msg_erro_confSenha.innerHTML = "A confirmação de senha é obrigatório";
+      return
+    }
+    if (confSenha != senha) {
+      msg_erro_confSenha.innerHTML = "As senhas não são iguais";
+      return
+    }
+
+    console.log(nome, email, confSenha, cpfLimpo, sexo, nomeSocial, nacionalidade, dtFormatada, cursos);
+    
+
+    var json = {
+      "nome": nome,
+      "email": email,
+      "senha": confSenha,
+      "cpf": cpfLimpo,
+      "sexo": sexo,
+      "nomeSocial": nomeSocial,
+      "nacionalidade": nacionalidade,
+      "dtNasc": dtFormatada,
+      "fkCurso": Number(cursos)
+    }
+
+
+    fetch('http://localhost:8080/alunos/cadastro', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(json)
+    })
+      .then(resposta => {
+        if (resposta.ok) {
+          return resposta.json();
+        }
+        throw new Error('Erro ao tentar cadastrar');
+      })
+      .then(dadosDeRetorno => {
+        console.log('Sucesso:', dadosDeRetorno);
+        alert('Usuário cadastrado com sucesso!');
+        window.location.href = "login.html"
+      })
+      .catch(erro => {
+        console.error('Erro na requisição:', erro);
+        alert('Houve um erro na comunicação com o servidor.');
+      });
+
+
+    const aceitou = document.getElementById("termos").checked;
+
+    if (!aceitou) {
+      alert("Você precisa aceitar os termos");
+      return;
+    }
+  }
+
+
+
+
+
+</script>

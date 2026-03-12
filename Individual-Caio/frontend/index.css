@@ -1,0 +1,146 @@
+:root {
+  --primary-blue: #0984e3;
+  --text-main: #0a0a0a;
+  --border-color: #ddd;
+  --input-bg: #fff;
+  --bg-light: #f4f6fb;
+  --select-bg: #f9f9f9;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, rgb(27, 37, 46), #0984e3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.registration-container {
+  background: white;
+  padding: 35px 45px;
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 750px; 
+}
+
+h1 {
+  text-align: center;
+  color: var(--primary-blue);
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.input-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #666;
+  font-weight: 600;
+}
+
+.optional-label {
+  font-weight: normal;
+  color: #aaa;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+input,
+select {
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s ease;
+  background-color: var(--input-bg);
+  color: #444;
+}
+
+input::placeholder {
+  color: #bbb;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.15);
+}
+
+select {
+  background-color: var(--select-bg);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230984e3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.row .input-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.radio-group input {
+  margin-right: 6px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-top: 20px;
+}
+
+.btn-submit:hover {
+  background-color: #0769b8;
+  transform: translateY(-2px);
+}
+
+.error-msg {
+  font-size: 12px;
+  color: red;
+  margin-top: 4px;
+  min-height: 14px;
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .registration-container {
+    padding: 25px;
+    margin: 10px;
+  }
+}
