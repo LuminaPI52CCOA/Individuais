@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <h2>Login</h2>
+            <label>Email</label>
+            <input type="email" id="ipt_email" placeholder="Email">
+            <label>Senha</label>
+            <input type="password" id="ipt_senha" placeholder="Senha">
+
+            <div class="radio-container">
+                <span class="radio-title">Aluno?</span>
+                <div class="radio-options">
+                    <div class="radio-item">
+                        <input type="radio" name="aluno" value="0" checked>
+                        <label for="aluno_sim">Sim</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio"  name="aluno" value="1">
+                        <label for="aluno_nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            <button onclick="fazerLogin()">Entrar</button>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+
+
+    async function fazerLogin() {
+
+        const email = document.getElementById("ipt_email").value;
+        const senha = document.getElementById("ipt_senha").value;
+        const radio = Number(document.querySelector('input[name="aluno"]:checked').value);
+
+        const jsonUsuario = {
+            nome: "",
+            email: email,
+            senha: senha,
+            tipo: radio
+        }
+
+        if(radio != 1){
+        const response = await fetch("http://localhost:8080/alunos/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jsonUsuario)
+        });
+
+        if (response.ok) {
+            alert("Login realizado com sucesso!");
+
+            sessionStorage.setItem('usuarioLogado', JSON.stringify(jsonUsuario))
+
+            window.location.href = "catalogoLivros.html";
+        } else {
+            alert("Email ou senha inválidos");
+        }
+    }else{
+        const response = await fetch("http://localhost:8080/funcionarios/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jsonUsuario)
+        });
+
+        if (response.ok) {
+            alert("Login realizado com sucesso!");
+
+            sessionStorage.setItem('usuarioLogado', JSON.stringify(jsonUsuario))
+
+            window.location.href = "catalogoLivros.html";
+        } else {
+            alert("Email ou senha inválidos");
+        }
+    }
+
+    }
+</script>

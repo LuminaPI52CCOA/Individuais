@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="catalogo.css">
+    <title>Catalogo livros</title>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <h2>BIBLIOTECH</h2>
+        <h3 id="nomeNav"></h3>
+        <button id="btnCadastrarLivro" class="btn-nav" onclick="abrirModal()">+ Cadastrar Livro</button>
+        <button id="btnDeletarLivro" class="btn-nav" onclick="abrirModalDelete()">- Deletar Livro</button>
+        <button id="btnCadastrarUsuario" class="btn-nav" onclick="cadastro()"> Cadastrar Usuário</button>
+        <button id="btnSair" class="btn-nav" onclick="sair()"> Sair </button>
+
+
+
+        <!-- <button class="btn-nav" style="background-color: transparent; border: 1px solid #34495e;">Ver Catálogo</button> -->
+    </aside>
+
+    <main class="main-content">
+        <h1>Meus Livros</h1>
+        <div id="catalogo_lista" class="catalogo-grid">
+        </div>
+    </main>
+
+    <div id="modal_cadastro" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharModal()">&times;</span>
+            <h3>Novo Livro</h3>
+            <form id="form_livro">
+                <label>Título</label>
+                <input type="text" id="ipt_titulo" placeholder="Ex: Dom Casmurro" required>
+
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex: 1;">
+                        <label>Gênero</label>
+                        <label for="slc_genero">Gênero</label>
+                        <select id="slc_genero" required>
+                            <option value="" disabled selected>Selecione o Gênero</option>
+                            <option value="1">Ficção</option>
+                            <option value="2">Romance</option>
+                            <option value="3">Fantasia</option>
+                            <option value="4">Ficção Científica</option>
+                            <option value="5">Terror</option>
+                            <option value="6">Suspense</option>
+                            <option value="7">Mistério</option>
+                            <option value="8">Drama</option>
+                            <option value="9">Aventura</option>
+                            <option value="10">Biografia</option>
+                            <option value="11">Autobiografia</option>
+                            <option value="12">História</option>
+                            <option value="13">Autoajuda</option>
+                            <option value="14">Negócios</option>
+                            <option value="15">Educação</option>
+                            <option value="16">Infantil</option>
+                            <option value="17">Juvenil</option>
+                            <option value="18">Religião</option>
+                            <option value="19">Filosofia</option>
+                            <option value="20">Tecnologia</option>
+                            <option value="21">Saúde</option>
+                            <option value="22">Psicologia</option>
+                            <option value="23">Poesia</option>
+                            <option value="24">HQ / Quadrinhos</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="button" onclick="cadastrar()" class="btn-save">Adicionar ao Catálogo</button>
+            </form>
+        </div>
+    </div>
+    <div id="modal_delete" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharModalDelete()">&times;</span>
+            <h3>Deletar Livro</h3>
+
+            <label>ID do Livro</label>
+            <input type="number" id="ipt_id_delete" placeholder="Digite o ID do livro">
+
+            <button onclick="deletarLivro()" class="btn-save" style="background-color: #c0392b;">Deletar</button>
+        </div>
+    </div>
+
+    <div id="notificacao" class="notificacao"></div>
+</body>
+
+</html>
+<script>
+
+    const usuario = JSON.parse(sessionStorage.getItem("usuarioLogado"));
+
+    if (usuario.tipo !== 1) {
+        console.log("Entrei aqui");
+        
+        fetch(`http://localhost:8080/alunos/buscarUsuario/${encodeURIComponent(usuario.email)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(resposta => {
+                if (resposta.ok) {
+                    return resposta.json();
+                    
+                }
+                throw new Error('Erro ao tentar cadastrar');
+            })
+            .then(dadosDeRetorno => {
+                usuario.nome = dadosDeRetorno.nome
+                console.log("voltou algum dado", usuario.nome)
+                nomeNav.innerHTML = `Olá, ${usuario.nome}`
+
+            })
+            .catch(erro => {
+                console.error('Erro na requisição:', erro);
+                alert('Houve um erro na comunicação com o servidor.');
+            });
+    } else{
+    
+        fetch(`http://localhost:8080/funcionarios/buscarUsuario/${encodeURIComponent(usuario.email)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(resposta => {
+                if (resposta.ok) {
+                    return resposta.json();
+                    
+                }
+                throw new Error('Erro ao tentar cadastrar');
+            })
+            .then(dadosDeRetorno => {
+                usuario.nome = dadosDeRetorno.nome
+                console.log("voltou algum dado", usuario.nome)
+                nomeNav.innerHTML = `Olá, ${usuario.nome}`
+
+            })
+            .catch(erro => {
+                console.error('Erro na requisição:', erro);
+                alert('Houve um erro na comunicação com o servidor.');
+            });
+    }
+
+
+    window.onload = function () {
+
+        if (usuario.tipo !== 1) {
+            document.getElementById("btnCadastrarLivro").style.display = "none";
+            document.getElementById("btnDeletarLivro").style.display = "none";
+            document.getElementById("btnCadastrarUsuario").style.display = "none";
+        }
+
+    };
+
+    function mostrarNotificacao(mensagem, tipo = "sucesso") {
+        const notif = document.getElementById("notificacao");
+
+        notif.textContent = mensagem;
+        notif.className = "notificacao mostrar";
+
+        if (tipo === "erro") {
+            notif.classList.add("erro");
+        }
+
+        setTimeout(() => {
+            notif.classList.remove("mostrar");
+        }, 3000);
+    }
+
+    function abrirModal() {
+
+        document.getElementById('modal_cadastro').style.display = 'flex';
+    }
+
+    function fecharModal() {
+        document.getElementById('modal_cadastro').style.display = 'none';
+    }
+
+    window.onclick = function (event) {
+        const modal = document.getElementById('modal_cadastro');
+        if (event.target == modal) {
+            fecharModal();
+        }
+    }
+
+
+    async function cadastrar() {
+        const tituloInput = document.getElementById('ipt_titulo').value;
+        const generoSelect = document.getElementById('slc_genero').value;
+
+        if (!tituloInput || !generoSelect) {
+            alert("Preencha os campos!");
+            return;
+        }
+
+        const tituloURL = encodeURIComponent(tituloInput.trim());
+
+        const url = `http://localhost:8080/livros/buscarLivros/${tituloURL}/${generoSelect}`;
+
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            if (response.ok) {
+                const resultado = await response.json();
+                mostrarNotificacao("Livro Cadastrado!");
+            } else {
+                const textoErro = await response.text();
+                alert(`Erro ${response.status}: ${textoErro}`);
+            }
+            fecharModal();
+            window.location.reload();
+
+        } catch (error) {
+            console.error("Erro de conexão:", error);
+            alert("Não foi possível conectar ao servidor.");
+        }
+    }
+
+
+
+
+
+    function abrirModalDelete() {
+        document.getElementById('modal_delete').style.display = 'flex';
+    }
+
+    function fecharModalDelete() {
+        document.getElementById('modal_delete').style.display = 'none';
+    }
+
+    async function deletarLivro() {
+
+        const id = document.getElementById("ipt_id_delete").value;
+
+        if (!id) {
+            alert("Digite o ID do livro!");
+            return;
+        }
+
+        if (!confirm("Tem certeza que deseja deletar?")) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/livros/${id}`, {
+                method: "DELETE"
+            });
+
+            if (response.ok) {
+                fecharModalDelete();
+                mostrarNotificacao("Livro deletado com sucesso!");
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+
+
+            } else {
+                mostrarNotificacao("Livro não encontrado.", "erro");
+            }
+
+        } catch (error) {
+            console.error(error);
+            alert("Erro ao conectar com servidor.");
+        }
+    }
+
+
+
+
+    fetch("http://localhost:8080/livros")
+        .then(res => res.json())
+        .then(livros => {
+
+            const lista = document.getElementById("catalogo_lista");
+
+            livros.forEach(livro => {
+
+                lista.innerHTML += `
+                <div class="livro-card">
+                    <h3>${livro.titulo}</h3>
+                    <p><strong>Id:</strong> ${livro.id}</p>
+                    <p><strong>Autor:</strong> ${livro.autor}</p>
+                    <p><strong>Gênero:</strong> ${livro.genero}</p>
+                </div>
+            `;
+
+            });
+
+        })
+        .catch(error => console.error("Erro:", error));
+
+
+
+
+    function cadastro() {
+        window.location.href = "cadastroFuncionario.html";
+    }
+
+
+    function sair() {
+
+            sessionStorage.removeItem('usuarioLogado');
+            sessionStorage.clear();
+            window.location.href = "login.html"
+        
+    }
+
+</script>
