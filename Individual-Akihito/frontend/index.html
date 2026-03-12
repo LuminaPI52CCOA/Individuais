@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yu-Gi-Oh! - Cadastro de Duelo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">YU-GI-OH!</div>
+      <p class="subtitle">Sistema de Cadastro de Duelistas</p>
+    </header>
+
+    <main class="form-container">
+      <form id="formCadastro" class="form">
+        <div class="form-group">
+          <label for="nome">Nome do Duelista *</label>
+          <input 
+            type="text" 
+            id="nome" 
+            name="nome" 
+            placeholder="Digite seu nome"
+            required
+          >
+          <span class="error" id="erroNome"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="idade">Idade *</label>
+          <input 
+            type="number" 
+            id="idade" 
+            name="idade" 
+            placeholder="Digite sua idade"
+            min="1"
+            max="120"
+            required
+          >
+          <span class="error" id="erroIdade"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="dataCadastro">Data de Cadastro *</label>
+          <input 
+            type="date" 
+            id="dataCadastro" 
+            name="dataCadastro"
+            required
+          >
+          <span class="error" id="erroData"></span>
+        </div>
+
+        <div class="form-group">
+          <label>Tipo de Jogador *</label>
+          <div class="radio-group">
+            <div class="radio-item">
+              <input 
+                type="radio" 
+                id="tipoPlayer" 
+                name="tipoJogador" 
+                value="Casual"
+                required
+              >
+              <label for="tipoPlayer">Casual</label>
+            </div>
+            <div class="radio-item">
+              <input 
+                type="radio" 
+                id="tipoCompetitivo" 
+                name="tipoJogador" 
+                value="Competitivo"
+                required
+              >
+              <label for="tipoCompetitivo">Competitivo</label>
+            </div>
+            <div class="radio-item">
+              <input 
+                type="radio" 
+                id="tipoColetor" 
+                name="tipoJogador" 
+                value="Coletor"
+                required
+              >
+              <label for="tipoColetor">Coletor</label>
+            </div>
+          </div>
+          <span class="error" id="erroTipo"></span>
+        </div>
+
+        <div class="form-group">
+          <label>Decks Favoritos *</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input 
+                type="checkbox" 
+                id="darkMagician" 
+                name="decks" 
+                value="Dark Magician"
+              >
+              <label for="darkMagician">Dark Magician</label>
+            </div>
+            <div class="checkbox-item">
+              <input 
+                type="checkbox" 
+                id="blueEyes" 
+                name="decks" 
+                value="Blue-Eyes"
+              >
+              <label for="blueEyes">Blue-Eyes</label>
+            </div>
+            <div class="checkbox-item">
+              <input 
+                type="checkbox" 
+                id="redEyes" 
+                name="decks" 
+                value="Red-Eyes"
+              >
+              <label for="redEyes">Red-Eyes</label>
+            </div>
+            <div class="checkbox-item">
+              <input 
+                type="checkbox" 
+                id="exodia" 
+                name="decks" 
+                value="Exodia"
+              >
+              <label for="exodia">Exodia</label>
+            </div>
+          </div>
+          <span class="error" id="erroDecks"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="raridade">Raridade Favorita *</label>
+          <select id="raridade" name="raridade" required>
+            <option value="">-- Selecione uma raridade --</option>
+          </select>
+          <span class="error" id="erroRaridade"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="comentarios">Comentários</label>
+          <textarea 
+            id="comentarios" 
+            name="comentarios" 
+            placeholder="Compartilhe sua experiência com Yu-Gi-Oh!"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          ENVIAR CADASTRO
+        </button>
+      </form>
+
+      <div id="mensagem" class="mensagem" style="display: none;"></div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
