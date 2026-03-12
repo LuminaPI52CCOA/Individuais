@@ -1,0 +1,16 @@
+meta {
+  name: deletar Usuario
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:8080/usuarios/2
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

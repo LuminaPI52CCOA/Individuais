@@ -1,0 +1,25 @@
+meta {
+  name: Atualizar Usuario
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:8080/usuarios/3
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nome": "Bibis",
+    "email": "Gabi@gmail.com",
+    "dataNasc": "2007-02-09",
+    "senha": "aaaaa222"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

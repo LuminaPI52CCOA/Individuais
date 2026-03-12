@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/avaliacao_perfil.css">
+    <title>ReviewBox - Minhas Avaliações</title>
+</head>
+
+<body>
+    <nav class="navbar-perfil">
+        <div class="usuario-info">
+            <button onclick="window.location.href='perfil.html'" class="btn-perfil">Voltar ao Perfil</button>
+        </div>
+    </nav>
+
+    <div class="main-container" style="flex-direction: column; align-items: center;">
+        <h2 style="color: #e50914; margin-bottom: 20px;">Minhas Avaliações</h2>
+        <div id="lista-avaliacoes" style="width: 100%; max-width: 800px;">
+        </div>
+    </div>
+
+    <div id="modalEdicao"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; justify-content:center; align-items:center;">
+        <div class="card" style="max-width: 500px; width: 90%;">
+            <h3>Editar Avaliação</h3>
+            <input type="hidden" id="edit-id">
+            <label>Nota:</label>
+            <input type="number" id="edit-nota" step="0.1" min="0" max="10">
+            <div class="checkbox-container">
+                <input type="checkbox" id="edit-favorito">
+                <label>Favorito</label>
+            </div>
+            <label>Comentário:</label>
+            <textarea id="edit-descricao"></textarea>
+            <button onclick="salvarEdicao()" class="btn-principal">Salvar</button>
+            <button onclick="fecharModal()" class="btn-secundario" style="margin-top:10px;">Cancelar</button>
+        </div>
+    </div>
+
+    <script src="js/avaliacao_perfil.js"></script>
+</body>
+
+</html>

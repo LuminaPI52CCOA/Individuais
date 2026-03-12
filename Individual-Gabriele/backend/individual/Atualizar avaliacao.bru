@@ -1,0 +1,24 @@
+meta {
+  name: Atualizar avaliacao
+  type: http
+  seq: 14
+}
+
+put {
+  url: http://localhost:8080/avaliacoes/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nota": 9,
+    "favorito": false,
+    "descricao": "AMOOO!!!"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

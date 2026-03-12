@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/avaliacao.css">
+    <title>ReviewBox - Avaliação</title>
+</head>
+
+<body>
+    <nav class="navbar-perfil">
+        <div class="usuario-info">
+            <span id="nome_usuario_header"></span>
+            <button onclick="window.location.href='perfil.html'" class="btn-perfil">Meu Perfil</button>
+            <button onclick="logout()" class="btn-sair">Sair</button>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="card">
+            <h3>Cadastrar Novo Filme</h3>
+            <form id="formFilme">
+                <input type="text" id="titulo_filme" placeholder="Título do Filme" required>
+                <input type="text" id="genero_filme" placeholder="Gênero (Ação, Drama...)" required>
+                <input type="number" id="class_ind" placeholder="Classificação Indicativa" required>
+                <button type="submit" class="btn-secundario">Salvar Filme</button>
+            </form>
+        </div>
+
+        <div class="card highlight">
+            <h3>Dê sua Nota</h3>
+            <form id="formAvaliacao">
+                <label for="selectFilmes">Escolha o Filme:</label>
+                <select id="selectFilmes" required>
+                    <option value="">Carregando filmes...</option>
+                </select>
+
+                <label for="nota">Sua Nota (0 a 10):</label>
+                <input type="number" id="nota" step="0.1" min="0" max="10" required>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="favorito">
+                    <label for="favorito">Marcar como favorito?</label>
+                </div>
+
+                <label for="descricao">Comentário (opcional):</label>
+                <textarea id="descricao" maxlength="255" placeholder="O que achou do filme?"></textarea>
+
+                <button type="submit" class="btn-principal">Finalizar Avaliação</button>
+            </form>
+        </div>
+    </div>
+    <script src="js/avaliacao.js"></script>
+</body>
+
+</html>

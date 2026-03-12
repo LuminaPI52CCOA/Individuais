@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #141414;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 100px;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 90%;
+    max-width: 1100px;
+    justify-content: center;
+}
+
+.navbar-perfil {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    display: flex;
+    z-index: 1000;
+}
+
+.usuario-info {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+#nome_usuario_header {
+    font-weight: bold;
+    color: #eee;
+}
+
+.card {
+    background: #1f1f1f;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    flex: 1;
+    border: 1px solid #333;
+}
+
+h3 {
+    color: #e50914;
+    margin-bottom: 20px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background: #2b2b2b;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.checkbox-container input {
+    width: auto;
+}
+
+.btn-principal {
+    background: #e50914;
+    color: white;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-secundario {
+    background: #555;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-perfil {
+    background: #680000;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-sair {
+    background: #b02a2a;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}

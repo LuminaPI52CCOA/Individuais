@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/perfil.css">
+    <title>ReviewBox - Meu Perfil</title>
+</head>
+
+<body>
+    <nav class="navbar-perfil">
+        <div class="usuario-info">
+            <div class="botoes-topo">
+                <button onclick="window.location.href='avaliacao_perfil.html'" class="btn-secundario"
+                    style="margin-bottom: 15px;">
+                    Ver Minhas Avaliações
+                </button>
+                <button onclick="window.location.href='avaliacao.html'" class="btn-perfil">Voltar</button>
+
+                <button onclick="sair()" class="btn-sair">Sair</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="card highlight">
+            <h3>Configurações de Conta</h3>
+            <form id="formAtualizar">
+                <label>E-mail (Login):</label>
+                <input type="email" id="perfil_email" disabled>
+
+                <label>Nome de Exibição:</label>
+                <input type="text" id="perfil_nome" required>
+
+                <label>Alterar Senha:</label>
+                <input type="password" id="perfil_senha" placeholder="Nova senha" required>
+
+                <button type="submit" class="btn-principal">Salvar Alterações</button>
+            </form>
+
+            <div class="danger-zone">
+                <button onclick="deletarConta()" class="btn-deletar">
+                    Excluir Minha Conta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/perfil.js"></script>
+</body>
+
+</html>

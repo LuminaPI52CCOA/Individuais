@@ -1,0 +1,26 @@
+meta {
+  name: CriarAvaliacao
+  type: http
+  seq: 11
+}
+
+post {
+  url: http://localhost:8080/avaliacoes
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nota": 10,
+    "favorito": true,
+    "descricao": "AMOOO!!!",
+    "fk_filme": 1,
+    "fk_usuario": 1
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

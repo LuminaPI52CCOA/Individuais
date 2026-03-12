@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.735), rgba(0, 0, 0, 0.758)),
+        url('../assets/fundo_index.jpg');
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.hero-container {
+    max-width: 600px;
+    padding: 20px;
+    animation: fadeIn 1.2s ease-out;
+}
+
+h1 {
+    font-size: 3.5rem;
+    color: #e50914;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #ccc;
+}
+
+.btn-start {
+    background-color: #e50914;
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.btn-start:hover {
+    background-color: #b20710;
+}
+
+.link-login{   
+    font-size: 15px;
+}
+
+.linkLogin{
+    color: #b20710;
+}
