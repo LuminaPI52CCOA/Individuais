@@ -1,0 +1,132 @@
+/* ---------------- RESET BÁSICO ---------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* ---------------- CONTAINER PRINCIPAL ---------------- */
+.containerC {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Imagem de fundo */
+    background-image: url('imgs/fundoarenajogadores.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 20px;
+}
+
+/* ---------------- CAIXA DO FORMULÁRIO ---------------- */
+.containerC .box {
+    width: 100%;
+    max-width: 500px;
+    background-color: rgba(15, 15, 15, 0.9);
+    border: 2px solid #fff;
+    border-radius: 10px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.containerC .box h1 {
+    color: #fff;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+/* ---------------- FORMULÁRIO E INPUTS ---------------- */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; 
+    width: 100%;
+}
+
+.formulario input[type="text"],
+.formulario input[type="email"], 
+.formulario input[type="number"],
+.formulario input[type="date"],
+.formulario select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000;
+    font-size: 16px;
+}
+
+.formulario input:focus, 
+.formulario select:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* ---------------- RADIOS E CHECKBOXES ---------------- */
+.radio-group, .checkbox-group {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    padding: 5px 0;
+}
+
+.radio-group label, .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.label-destaque {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* ---------------- BOTÃO ---------------- */
+#btnCadastrar {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    background-color: #fff;
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#btnCadastrar:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/* ---------------- MENSAGENS DE RETORNO ---------------- */
+#cadastroResposta {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* ---------------- ÍCONE DE LOADING (GIF) ---------------- */
+.gif-loading {
+    width: 50px;
+    height: auto;
+    margin: 15px auto 0; 
+    display: block;
+}

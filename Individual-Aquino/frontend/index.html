@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - Fiel Torcedor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="containerC">
+        <div class="box">
+            <h1>Seja um Fiel Torcedor</h1>
+            
+            <form id="formCadastro" class="formulario">
+                <input type="text" id="nome" placeholder="Nome Completo" required>
+                <input type="email" id="email" placeholder="E-mail" required>
+                <input type="text" id="cpf" placeholder="CPF (apenas números)" maxlength="11" required>
+                <input type="date" id="dataNascimento" required>
+
+                <div class="radio-group" style="flex-wrap: wrap;"> <span class="label-destaque" style="width: 100%;">Plano:</span>
+                    <label><input type="radio" name="plano" value="Fiel Digital" checked> Fiel Digital</label>
+                    <label><input type="radio" name="plano" value="Minha Vida"> Minha Vida</label>
+                    <label><input type="radio" name="plano" value="Minha História"> Minha História</label>
+                    <label><input type="radio" name="plano" value="Meu Amor"> Meu Amor</label>
+                    <label><input type="radio" name="plano" value="Minha Cadeira"> Minha Cadeira</label>
+                </div>
+
+                <select id="setores" required>
+                    <option value="">Carregando setores...</option>
+                </select>
+
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="aceitaEmails" checked> Aceita receber informações do Corinthians por e-mail?
+                    </label>
+                </div>
+
+                <button type="submit" id="btnCadastrar">CADASTRAR</button>
+                <img src="imgs/loading2.webp" id="loading" class="gif-loading" style="display: none;" alt="Carregando...">
+            </form>
+            </form>
+            
+            <div id="cadastroResposta"></div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
